@@ -1,0 +1,6 @@
+# Defconfig deltas for the //gborges:gbrpi5 kernel build, applied as a
+# pre_defconfig_fragment on top of //common:arch/arm64/configs/android_rpi5_defconfig.
+# Mirrors gbrpi4.fragment — same toolchain limitation, same CAN driver.
+
+CONFIG_CC_CAN_LINK_STATIC=y # nocheck: NDK r26 has no static libc; static-link probe fails
+CONFIG_CAN_MCP251X=m

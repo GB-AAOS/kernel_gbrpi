@@ -1,0 +1,14 @@
+# Defconfig deltas for the //gborges:gbrpi4 kernel build, applied as a
+# pre_defconfig_fragment on top of //common:arch/arm64/configs/android_rpi4_defconfig.
+
+# NDK r26 has no static libc; the kconfig static-link probe (cc-can-link.sh
+# -static against the aarch64-linux-android sysroot) cannot succeed because
+# libc.a / libdl.a / libm.a are stubs / absent. The base defconfig asserts
+# =y, so we keep the assertion but tell kleaf's check_config to downgrade
+# the inevitable mismatch from error to warning.
+CONFIG_CC_CAN_LINK_STATIC=y # nocheck: NDK r26 has no static libc; static-link probe fails
+
+# MCP2515 SPI CAN controller driver — required by the Waveshare RS485 CAN
+# HAT (and any compatible standalone MCP2515 board) attached to SPI0 CE0.
+# Loaded at runtime via DT modalias when the mcp2515-can0 dtoverlay binds.
+CONFIG_CAN_MCP251X=m
